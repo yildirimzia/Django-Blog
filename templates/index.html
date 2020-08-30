@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <div class="jumbotron text-center">
+      <h3>Ziya yildirim</h3>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis non odio officiis ipsam eveniet nihil sunt omnis natus! Aliquid voluptate fugiat harum nemo perferendis laborum illum maiores tempore eum magnam.</p>
+    
+  </div>
+
+  <p>
+    {% if request.user.is_authenticated %}
+    Gris yapilmis  {{request.user.username}}
+    {% else %}
+    giris yapilmamis
+    {% endif %}
+  </p>
+{% endblock %}

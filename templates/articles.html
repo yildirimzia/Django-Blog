@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+    <h3>Makaleler</h3>
+    <hr>
+
+    <form>
+        {% csrf_token %}
+        <input type="text" name="keyword" class="input-sm">
+        <button class="btn btn-danger" type="submit">Ara</button>
+    </form>
+    <hr>
+    {% if articles %}
+        {% for article in articles %}
+        <div class="row">
+            <div class="col-lg-8">
+                <a href="{% url 'article:detail' article.id %}"> <h2 class="mt-4">{{article.title}}</h2></a>
+                <p class="lead">
+                    {{article.author.username}} tarafindan yayinlandi
+                </p>
+        
+                <hr>
+                <p>{{article.created_date}}</p>
+        
+                <hr>
+                {% if article.article_image %}
+                  <a href="{% url 'article:detail' article.id %}">
+                    <img class="img-fluid rounded" src="{{article.article_image.url}}" alt=""> 
+                  </a>
+                {% endif %}
+                <hr>
+        
+                <!-- Post Content -->
+                <p class="lead">
+                    {{article.content|safe|truncatewords:60}}
+                </p>
+                <a style="float: right;" class="btn btn-warning"  href="{% url 'article:detail' article.id %}">Devamini Oku</a>
+                <hr>
+            </div>
+        
+        </div>
+        {%endfor%}
+    {% else %}
+        <div class="alert alert-danger">
+           Makale Bulunamadi !
+        </div>
+    {% endif %}
+
+{% endblock body %}
